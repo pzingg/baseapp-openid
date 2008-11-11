@@ -1,9 +1,3 @@
-<%= form.label :login %><br />
-<%= form.text_field :login %><br />
-<br />
-<%= form.label :password, form.object.new_record? ? nil : "Change password" %><br />
-<%= form.password_field :password %><br />
-<br />
-<%= form.label :confirm_password%><br />
-<%= form.password_field :confirm_password %><br />
-<br />
+<%= f.field :login %>
+<%= f.password_field :password, :label => (f.object.new_record? ? nil : "Change password") %>
+<%= f.password_field :confirm_password %>

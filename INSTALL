@@ -32,10 +32,12 @@ add users controller routes to routes.rb
 add before filters to user_sessions_controller.rb
 add before filters and current_user code to users_controller.rb
 
-TODO: Clean up forms with awesome_fields and better_partials
+5. Clean up forms with awesome_fields and better_partials
 braid add -p git://github.com/Shadowfiend/awesome_fields.git
 add better_partials to environment.rb
 sudo rake gems:install
+add ryanb's nifty_layout helper's and css stylesheet
+add some styling for form labels from http://jeffhowden.com
 
 TODO: Set up roles and administrative area
 add role_requirement gem to environment.rb

@@ -1,12 +1,10 @@
-<h1>User Activity</h1>
-
+<% title "User Activity" %>
 <table>
   <tr>
     <th>Login</th>
     <th>Login count</th>
     <th>Last login at</th>
   </tr>
-
 <% for user in @users %>
   <tr>
     <td><%=h user.login %></td>
@@ -15,5 +13,4 @@
   </tr>
 <% end %>
 </table>
-
 

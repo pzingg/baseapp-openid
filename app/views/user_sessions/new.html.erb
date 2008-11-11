@@ -1,15 +1,8 @@
-<h1>Login</h1>
- 
+<% title "Login" %>
 <%= error_messages_for "user_session", :header_message => nil %>
- 
-<% form_for @user_session, :url => user_session_path do |f| %>
-  <%= f.label :login %><br />
-  <%= f.text_field :login %><br />
-  <br />
-  <%= f.label :password %><br />
-  <%= f.password_field :password %><br />
-  <br />
-  <%= f.check_box :remember_me %><%= f.label :remember_me %><br />
-  <br />
+ <% lined_form_for @user_session, :url => user_session_path do |f| %>
+  <%= f.text_field :login %>
+  <%= f.password_field :password %>
+  <%= f.check_box :remember_me %>
   <%= f.submit "Login" %>
 <% end %>
