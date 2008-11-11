@@ -39,8 +39,13 @@ sudo rake gems:install
 add ryanb's nifty_layout helper's and css stylesheet
 add some styling for form labels from http://jeffhowden.com
 
-TODO: Set up roles and administrative area
-add role_requirement gem to environment.rb
+6: Set up roles and administrative area
+braid add -p git://github.com/timcharper/role_requirement.git
+script/generate roles Role User
+added "empty" authenticated_system.rb module
+rake db:migrate
+add require_role "admin" for UsersController#destroy and #index
+
 See http://railscasts.com/episodes/19-where-administration-goes
 See http://www.vimeo.com/637894
 See baseapp project
