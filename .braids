@@ -13,3 +13,10 @@ vendor/rails:
   revision: c65075feb6c4ce15582bc08411e6698d782249a7
   branch: master
   remote: braid/vendor/rails
+vendor/plugins/role_requirement: 
+  squashed: true
+  url: git://github.com/timcharper/role_requirement.git
+  type: git
+  revision: 0140050d6676ffa8519e5b1f7c146bd72c02e1da
+  branch: master
+  remote: braid/vendor/plugins/role-requirement
