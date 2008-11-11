@@ -20,3 +20,10 @@ vendor/plugins/role_requirement:
   revision: 0140050d6676ffa8519e5b1f7c146bd72c02e1da
   branch: master
   remote: braid/vendor/plugins/role-requirement
+vendor/plugins/configatron-rails: 
+  squashed: true
+  url: git://github.com/cmaggard/configatron-rails.git
+  type: git
+  revision: 9297d5f38b5c93b1c99c7a00060e677fcf0e91ed
+  branch: master
+  remote: braid/vendor/plugins/configatron-rails
