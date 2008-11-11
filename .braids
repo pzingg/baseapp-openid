@@ -1,4 +1,11 @@
 --- 
+vendor/plugins/awesome_fields: 
+  squashed: true
+  url: git://github.com/Shadowfiend/awesome_fields.git
+  type: git
+  revision: 3ad3dc49b65b70278176d6b4418aff485269a235
+  branch: master
+  remote: braid/vendor/plugins/awesome-fields
 vendor/rails: 
   squashed: true
   url: git://github.com/rails/rails.git
