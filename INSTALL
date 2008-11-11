@@ -1,0 +1,13 @@
+1. Create local git repository
+mkdir accountmgr
+cd accountmgr
+git init
+touch README
+touch INSTALL
+git add *
+git commit -a -m "first commit"
+
+2. Configuring braid support for plugin updates
+braid add git://github.com/rails/rails.git vendor/rails
+
+3. Add required gems to environment.rb
