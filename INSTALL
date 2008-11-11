@@ -26,6 +26,19 @@ add user_session routes in routes.rb
 script/generate model user
 rake db:migrate
 annotate
+add current_user and related methods to application controller
 add "acts_as_authentic" to user model
-add code to users_controller.rb
-add routes to users controller
+add users controller routes to routes.rb
+add before filters to user_sessions_controller.rb
+add before filters and current_user code to users_controller.rb
+
+TODO: Clean up forms with awesome_fields and better_partials
+braid add -p git://github.com/Shadowfiend/awesome_fields.git
+add better_partials to environment.rb
+sudo rake gems:install
+
+TODO: Set up roles and administrative area
+add role_requirement gem to environment.rb
+See http://railscasts.com/episodes/19-where-administration-goes
+See http://www.vimeo.com/637894
+See baseapp project

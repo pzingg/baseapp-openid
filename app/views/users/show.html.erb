@@ -2,22 +2,6 @@
   <b>Login:</b>
   <%=h @user.login %>
 </p>
-
-<p>
-  <b>Crypted password:</b>
-  <%=h @user.crypted_password %>
-</p>
-
-<p>
-  <b>Password salt:</b>
-  <%=h @user.password_salt %>
-</p>
-
-<p>
-  <b>Remember token:</b>
-  <%=h @user.remember_token %>
-</p>
-
 <p>
   <b>Login count:</b>
   <%=h @user.login_count %>
@@ -49,5 +33,5 @@
 </p>
 
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<%= link_to 'Edit', edit_account_path %>
+
