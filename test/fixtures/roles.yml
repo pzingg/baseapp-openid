@@ -1,0 +1,15 @@
+# == Schema Information
+# Schema version: 20081111222946
+#
+# Table name: roles
+#
+#  id   :integer(4)      not null, primary key
+#  name :string(255)
+#
+
+admin_role:
+  id: 1
+  name: admin
+user_role:
+  id: 2
+  name: user
