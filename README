@@ -1,0 +1,16 @@
+Newly designed account management system based on latest gems and plugins.
+
+Goals:
+  - use authlogic gem to handle session authentication
+  - support multiple OpenID identities (from embark project, idselector.com support and recaptcha gem)
+  - support decryption of user passwords (from insoshi project)
+  - role-based authorization (role_requirement gem)
+  - administrative interface (from baseapp project)
+  - yaml configuration (configatron gem)
+  - use DRY form builders (awesome_fields and better_partials gems)
+  - support seo-friendly URLs (friendly_id and static_actions gems)
+  - thor task system (from blank project)
+  - jquery support (from blank project)
+  - improved outgoing and incoming mail handling and background tasks (simplified_starling, tlsmail, fetcher gems)
+
+See INSTALL for how it was built.

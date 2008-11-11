@@ -4,10 +4,28 @@ cd accountmgr
 git init
 touch README
 touch INSTALL
+touch .gitignore
 git add *
 git commit -a -m "first commit"
 
 2. Configuring braid support for plugin updates
 braid add git://github.com/rails/rails.git vendor/rails
 
-3. Add required gems to environment.rb
+3. Create rails application (don't overwrite README)
+ruby vendor/rails/railties/bin/rails -d mysql .
+git add .
+git commit -m "empty mysql rails application"
+
+4. Set up authlogic per tutorial
+create databases and edit database.yml
+add "config.gem :authlogic" to environment.rb
+add and edit app/models/user_session.rb
+script/generate controller user_sessions
+edit app/controllers/users_seccions_controller.rb
+add user_session routes in routes.rb
+script/generate model user
+rake db:migrate
+annotate
+add "acts_as_authentic" to user model
+add code to users_controller.rb
+add routes to users controller
