@@ -2,7 +2,7 @@
 <%= error_messages_for "user_session", :header_message => nil %>
  <% lined_form_for @user_session, :url => user_session_path do |f| %>
   <fieldset><legend>Login with OpenID</legend>
-  <input type="text" name="user_session[identity_url]" id="openid_identifier" />
+  <input type="text" name="openid_url" id="openid_identifier" />
   </fieldset>
   <fieldset><legend>Or using a password</legend>
   <%= f.text_field :login %>

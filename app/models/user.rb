@@ -147,10 +147,7 @@ class User < ActiveRecord::Base
   def new_identity_attributes=(identity_attributes) 
     identity_attributes.each do |attrs|
       if !attrs[:url].blank? && !attrs[:url].match(/^Click/)
-        logger.info "building identity #{attrs[:url]}"
         self.identities.build(attrs)
-      else
-        logger.info "invalid identity url"
       end
     end
   end 
@@ -159,10 +156,8 @@ class User < ActiveRecord::Base
     identities.reject(&:new_record?).each do |identity| 
       attributes = identity_attributes[identity.id.to_s] 
       if attributes
-        logger.info "updating identity #{identity.id}"
         identity.attributes = attributes 
       else 
-        logger.info "deleting identity #{identity.id}"
         identities.delete(identity) 
       end 
     end 
@@ -170,7 +165,6 @@ class User < ActiveRecord::Base
    
   def save_identities 
     identities.each do |identity|
-      logger.info "saving identity #{identity.id}"
       identity.save(false)
     end
   end 
