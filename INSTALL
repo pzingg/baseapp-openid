@@ -56,6 +56,11 @@ script/generate config
 add admin/users_controller and admin/users views
 add admin routes from baseapp
 
+8. Add OpenID stuff
+config.gem 'ruby-openid'
+braid add -p git://github.com/rails/open_id_authentication.git
+rake open_id_authentication:db:create
+
 
 See http://railscasts.com/episodes/19-where-administration-goes
 See http://www.vimeo.com/637894

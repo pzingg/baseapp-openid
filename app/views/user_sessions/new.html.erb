@@ -1,8 +1,16 @@
 <% title "Login" %>
 <%= error_messages_for "user_session", :header_message => nil %>
  <% lined_form_for @user_session, :url => user_session_path do |f| %>
+  <fieldset><legend>Login with OpenID</legend>
+  <input type="text" name="user_session[identity_url]" id="openid_identifier" />
+  </fieldset>
+  <fieldset><legend>Or using a password</legend>
   <%= f.text_field :login %>
   <%= f.password_field :password %>
   <%= f.check_box :remember_me %>
+  </fieldset>
   <%= f.submit "Login" %>
+<!-- BEGIN ID SELECTOR -->
+<script type="text/javascript" id="__openidselector" src="https://www.idselector.com/selector/96ae06e86c446a7054d56bab9edbd09b1d6f6e43" charset="utf-8"></script>
+<!-- END ID SELECTOR -->
 <% end %>

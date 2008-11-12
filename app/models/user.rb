@@ -49,12 +49,12 @@ class User < ActiveRecord::Base
   RE_DOMAIN_TLD   = '(?:[A-Z]{2}|com|org|net|edu|gov|mil|biz|info|mobi|name|aero|jobs|museum)'
   RE_EMAIL_OK     = /\A#{RE_EMAIL_NAME}@#{RE_DOMAIN_HEAD}#{RE_DOMAIN_TLD}\z/i
   MSG_EMAIL_BAD   = "should look like an email address."
-
-  
   
   # Relations
   has_and_belongs_to_many :roles
-  has_many :identities
+  has_many :identities, :dependent => :destroy
+
+  attr_accessor :identity # added on form
 
   # Validations
   validates_presence_of :login, :if => :not_using_openid?
@@ -65,6 +65,7 @@ class User < ActiveRecord::Base
   validates_length_of :email, :within => 6..100, :if => :not_using_openid?
   validates_uniqueness_of :email, :case_sensitive => false, :if => :not_using_openid?
   validates_format_of :email, :with => RE_EMAIL_OK, :message => MSG_EMAIL_BAD, :if => :not_using_openid?
+  validates_associated :identities, :message => 'could not be validated'
 
   # State Machine
   aasm_column :state
@@ -140,11 +141,50 @@ class User < ActiveRecord::Base
     # UserMailer.deliver_forgot_password(self)
   end
 
+  # Advanced Rails Recipes, Chapter 13
+  after_update :save_identities 
+
+  def new_identity_attributes=(identity_attributes) 
+    identity_attributes.each do |attrs|
+      if !attrs[:url].blank? && !attrs[:url].match(/^Click/)
+        logger.info "building identity #{attrs[:url]}"
+        self.identities.build(attrs)
+      else
+        logger.info "invalid identity url"
+      end
+    end
+  end 
+
+  def existing_identity_attributes=(identity_attributes)
+    identities.reject(&:new_record?).each do |identity| 
+      attributes = identity_attributes[identity.id.to_s] 
+      if attributes
+        logger.info "updating identity #{identity.id}"
+        identity.attributes = attributes 
+      else 
+        logger.info "deleting identity #{identity.id}"
+        identities.delete(identity) 
+      end 
+    end 
+  end
+   
+  def save_identities 
+    identities.each do |identity|
+      logger.info "saving identity #{identity.id}"
+      identity.save(false)
+    end
+  end 
+  
   class << self
     def find_by_login_or_email(login_or_email)
       find(:first, :conditions => ['login = ? OR email = ?', login_or_email, login_or_email])
     rescue
       nil
+    end
+    
+    def find_by_open_id(identity_url)
+      ident = Identity.find_by_url(OpenIdAuthentication.normalize_url(identity_url))
+      ident.nil? ? nil : ident.user
     end
 
     def make_token

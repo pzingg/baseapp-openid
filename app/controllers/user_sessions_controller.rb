@@ -7,7 +7,13 @@ class UserSessionsController < ApplicationController
   end
 
   def create
-    @user_session = UserSession.new(params[:user_session])
+    if params[:user_session][:login].blank?
+      # open_id lookup
+      unauth_user = User.find_by_open_id(params[:user_session][:identity_url])
+      @user_session = UserSession.new(unauth_user)
+    else
+      @user_session = UserSession.new(params[:user_session])
+    end
     if @user_session.save
       flash[:notice] = "Login successful!"
       redirect_back_or_default account_url

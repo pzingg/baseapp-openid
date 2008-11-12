@@ -1,6 +1,5 @@
 <% title "Register" %>
 <% lined_form_for @user, :url => account_path do |f| %>
-  <%= f.error_messages %>
   <%= partial "users/form", :f => f %>
   <%= f.submit "Register" %>
 <% end %>

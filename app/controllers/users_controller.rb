@@ -29,7 +29,9 @@ class UsersController < ApplicationController
   # GET /users/new
   # GET /users/new.xml
   def new
+    # Advanced Rails Recipes, Chapter 13
     @user = User.new
+    @user.identities.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -41,12 +43,14 @@ class UsersController < ApplicationController
   def edit
     # @user = User.find(params[:id])
     @user = current_user
+    @user.identities.build
   end
 
   # POST /users
   # POST /users.xml
   def create
     @user = User.new(params[:user])
+    @user.identities << Identity.new(params[:user][:identity]) if params[:user][:identity]
     respond_to do |format|
       if @user.valid?
         if @user.not_using_openid?
@@ -80,7 +84,8 @@ class UsersController < ApplicationController
   def update
     # @user = User.find(params[:id])
     @user = current_user # makes our views "cleaner" and more consistent
-
+    params[:user][:existing_identity_attributes] ||= {} 
+    
     respond_to do |format|
       if @user.update_attributes(params[:user])
         flash[:notice] = "Account updated!"

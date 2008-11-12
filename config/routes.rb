@@ -39,6 +39,9 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :user_session
   map.default "/", :controller => "user_sessions", :action => "new"
   
+  # TODO add static_actions gem with a home page
+  map.root :controller => "user_sessions", :action => "new"
+  
   # user accounts
   map.resource :account, :controller => "users"
   map.resources :users

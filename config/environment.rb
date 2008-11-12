@@ -38,6 +38,8 @@ Rails::Initializer.run do |config|
   config.gem 'jcnetdev-better_partials', :version => '>= 1.0',
     :lib => 'better_partials',
     :source => 'http://gems.github.com'
+  config.gem 'ruby-openid', :version => '>= 2.0.4',
+    :lib => 'openid'
 
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.

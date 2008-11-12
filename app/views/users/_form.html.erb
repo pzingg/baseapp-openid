@@ -1,4 +1,16 @@
+<% javascript :defaults %>
 <%= f.field :login %>
 <%= f.field :email, :size => 60 %>
 <%= f.password_field :password, :label => (f.object.new_record? ? nil : "Change password") %>
 <%= f.password_field :confirm_password %>
+<div id="identities"> 
+<%= partial 'identity', :collection => @user.identities %> 
+</div> 
+<!-- BEGIN ID SELECTOR -->
+<script type="text/javascript">
+<!--
+idselector_input_id = "user_new_identity_attributes__url";
+-->
+</script>
+<script type="text/javascript" id="__openidselector" src="https://www.idselector.com/selector/96ae06e86c446a7054d56bab9edbd09b1d6f6e43" charset="utf-8"></script>
+<!-- END ID SELECTOR -->
