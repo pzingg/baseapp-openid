@@ -1,6 +1,6 @@
 class Admin::UsersController < ApplicationController
-  require_role :admin
-  layout 'admin'
+  # require_role 'admin'
+  # layout 'admin'
   
   def reset_password
     @user = User.find(params[:id])

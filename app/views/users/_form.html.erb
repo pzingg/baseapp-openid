@@ -1,3 +1,4 @@
 <%= f.field :login %>
+<%= f.field :email, :size => 60 %>
 <%= f.password_field :password, :label => (f.object.new_record? ? nil : "Change password") %>
 <%= f.password_field :confirm_password %>

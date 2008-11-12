@@ -48,10 +48,13 @@ add require_role "admin" for UsersController#destroy and #index
 
 7. Add administrative interface from baseapp
 add "config.gem 'configatron'" to environment.rb
+add "config.gem 'mislav-will_paginate'" to environment.rb
+add "config.gem 'rubyist-aasm'" to environment.rb
 rake gems:install
 braid add -p git://github.com/cmaggard/configatron-rails.git
 script/generate config
-
+add admin/users_controller and admin/users views
+add admin routes from baseapp
 
 
 See http://railscasts.com/episodes/19-where-administration-goes

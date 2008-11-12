@@ -28,10 +28,16 @@ Rails::Initializer.run do |config|
   # config.gem "sqlite3-ruby", :lib => "sqlite3"
   # config.gem "aws-s3", :lib => "aws/s3"
   config.gem 'configatron'
+  config.gem 'mislav-will_paginate', :version => '~> 2.2.3', 
+    :lib => 'will_paginate', 
+    :source => 'http://gems.github.com'
   config.gem 'authlogic'
+  config.gem 'rubyist-aasm', :version => '>= 2.0',
+    :lib => 'aasm',
+    :source => 'http://gems.github.com'
   config.gem 'jcnetdev-better_partials', :version => '>= 1.0',
-                                         :lib => 'better_partials',
-                                         :source => 'http://gems.github.com'
+    :lib => 'better_partials',
+    :source => 'http://gems.github.com'
 
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.

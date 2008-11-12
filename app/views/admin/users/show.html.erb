@@ -1,50 +1,39 @@
-<% content_for :header do -%>
- 	<%= configatron.site_name %> Account for <em><%=h @user.login %></em>
-<% end -%>
+<% title @user.login %>
 
-<% content_for :sidebar do -%>
+<h2>Account status: <%= @user.state.to_s.humanize %></h2> 
 
-<h2>Account status: <%= @user.state.to_s.humanize %></h2>	
+<p>Login<br /><%=h @user.login %></p>
+<p>Email<br /><%=h @user.email %></p>
+<p>Password<br />******* <%= link_to_if !@user.deleted?, "Send new password", reset_password_admin_user_url(@user), :method => :put %></p>
+<p>Login count<br /><%=h @user.last_login_ip %></p>
+<p>Last login at<br /><%=h @user.last_login_at %></p>
+<p>Last login ip<br /><%=h @user.last_login_ip %></p>
+<p>Account created<br /><%=h @user.created_at %></p>
+<p>Last updated<br /><%=h @user.updated_at %></p>
 
 <ul>
-	<% if @user.pending? -%>
-		<li><%= link_to "Activate", activate_admin_user_url(@user), :method => :put %></li>
-		<li><%= link_to "Suspend", suspend_admin_user_url(@user), :method => :put %></li>
-		<li><%= link_to "Delete", admin_user_url(@user), :method => :delete %></li>
-	<% end -%>
-	
-	<% if @user.suspended? -%>
-		<li><%= link_to "Unsuspend", unsuspend_admin_user_url(@user), :method => :put %></li>
-	<% end -%>
-
-	<% if @user.active? -%>
-		<li><%= link_to "Suspend", suspend_admin_user_url(@user), :method => :put %></li>
-		<li><%= link_to "Delete", admin_user_url(@user), :method => :delete, :confirm => "Are you sure you want to delete this account?" %></li>
-	<% end -%>
-	
-	<% # TODO: Uncomment to enable user purging by the administrator %>
-	<!--
-	<% if @user.deleted? -%>
-		<li><%= link_to "Purge", purge_admin_user_url(@user), :method => :delete, :confirm => "Are you sure you want to remove this account, and all data associated with it from base_app?" %></li>
-	<% end -%>
-    -->
-</ul>	
+<% if @user.pending? -%>
+  <li><%= link_to "Activate", activate_admin_user_url(@user), :method => :put %></li>
+  <li><%= link_to "Suspend", suspend_admin_user_url(@user), :method => :put %></li>
+  <li><%= link_to "Delete", admin_user_url(@user), :method => :delete %></li>
 <% end -%>
 
-<table class="overview">
-	<%= cell "Login", h(@user.login) %>
-	<%= cell "User ID", h(@user.id) %>
+<% if @user.suspended? -%>
+  <li><%= link_to "Unsuspend", unsuspend_admin_user_url(@user), :method => :put %></li>
+<% end -%>
 
-	<%= cell_separator %>
-	
-	<%= cell "Email", h(@user.email) %>
-	<%= cell "Password", "#{"*"*8} <small>#{link_to_if !@user.deleted?, "send new password", reset_password_admin_user_url(@user), :method => :put}</small>" %>
-	
-	<%= cell_separator %>
-	
-	<%= cell "Account created", @user.created_at.to_s(:long) %>
-	<%= cell "Last updated", @user.updated_at.to_s(:long) %>
-</table>
+<% if @user.active? -%>
+  <li><%= link_to "Suspend", suspend_admin_user_url(@user), :method => :put %></li>
+  <li><%= link_to "Delete", admin_user_url(@user), :method => :delete, :confirm => "Are you sure you want to delete this account?" %></li>
+<% end -%>
+
+<% # TODO: Uncomment to enable user purging by the administrator %>
+<!--
+<% if @user.deleted? -%>
+  <li><%= link_to "Purge", purge_admin_user_url(@user), :method => :delete, :confirm => "Are you sure you want to remove this account, and all data associated with it from base_app?" %></li>
+<% end -%>
+  -->
+</ul>
 
 <%= link_to 'Edit', edit_admin_user_path(@user) %> |
 <%= link_to 'Back', admin_users_path %>

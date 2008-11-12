@@ -47,14 +47,29 @@ class UsersController < ApplicationController
   # POST /users.xml
   def create
     @user = User.new(params[:user])
-
     respond_to do |format|
-      if @user.save
+      if @user.valid?
+        if @user.not_using_openid?
+          @user.register! # will save
+        else
+          @user.register_openid! # will save
+        end
         flash[:notice] = "Account registered!"
-        format.html { redirect_back_or_default account_url }
+        format.html do 
+          redirect_back_or_default account_url
+          flash[:notice] = "Thanks for signing up!"
+          if @user.not_using_openid?
+            flash[:notice] << " We're sending you an email with your activation code."
+          else
+            flash[:notice] << " You can now login with your OpenID."
+          end
+        end
         format.xml  { render :xml => @user, :status => :created, :location => @user }
       else
-        format.html { render :action => "new" }
+        format.html do
+          flash[:error] = "Sorry, there was an error creating your account."
+          render :action => "new"
+        end
         format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
       end
     end
@@ -92,4 +107,5 @@ class UsersController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
 end

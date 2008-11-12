@@ -43,6 +43,41 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :account, :controller => "users"
   map.resources :users
   
+  # RESTful rewrites from baseapp
+  map.signup   '/signup',   :controller => 'users',    :action => 'new'
+  map.login    '/login',    :controller => 'user_sessions', :action => 'new'
+  map.logout   '/logout',   :controller => 'user_sessions', :action => 'destroy', :conditions => {:method => :delete}
+  
+  # TODO
+  # map.register '/register', :controller => 'users',    :action => 'create'
+  # map.activate '/activate/:activation_code', :controller => 'users',    :action => 'activate'
+  
+  # User interactions from baseapp
+  # TODO
+  # map.user_troubleshooting '/users/troubleshooting', :controller => 'users', :action => 'troubleshooting'
+  # map.user_forgot_password '/users/forgot_password', :controller => 'users', :action => 'forgot_password'
+  # map.user_reset_password  '/users/reset_password/:password_reset_code', :controller => 'users', :action => 'reset_password'
+  # map.user_forgot_login    '/users/forgot_login',    :controller => 'users', :action => 'forgot_login'
+  # map.user_clueless        '/users/clueless',        :controller => 'users', :action => 'clueless'
+  
+  # map.resources :users, :member => { :edit_password => :get,
+  #                                   :update_password => :put,
+  #                                   :edit_email => :get }
+                                     
+  # Administrator interface from baseapp
+  map.namespace(:admin) do |admin|
+   admin.root :controller => 'users', :action => 'index'
+   admin.resources :users, :member => { :suspend   => :put,
+                                        :unsuspend => :put,
+                                        :activate  => :put, 
+                                        :purge     => :delete,
+                                        :reset_password => :put },
+                           :collection => { :pending   => :get,
+                                            :active    => :get, 
+                                            :suspended => :get, 
+                                            :deleted   => :get }
+  end
+  
   # See how all your routes lay out with "rake routes"
 
   # Install the default routes as the lowest priority.

@@ -19,14 +19,23 @@ class ApplicationController < ActionController::Base
   # filter_parameter_logging :password
 
   # authlogic user sessions
-  helper_method :user_session, :current_user
+  helper_method :user_session, :current_user, :logged_in
   before_filter :load_user
-
+  
+  def access_denied
+    flash[:error] = "No entry"
+    redirect_to default_path
+  end
+    
   private
 
   def load_user
     @user_session = UserSession.find
     @current_user = @user_session && @user_session.record
+  end
+  
+  def logged_in?
+    !current_user.nil?
   end
 
   def user_session
