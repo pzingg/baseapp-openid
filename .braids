@@ -1,4 +1,11 @@
 --- 
+vendor/plugins/static_actions: 
+  squashed: true
+  url: git://github.com/ryanb/static_actions.git
+  type: git
+  revision: 04f723450d115c8e42db18b8a493e0556b18e3da
+  branch: master
+  remote: braid/vendor/plugins/static-actions
 vendor/plugins/awesome_fields: 
   squashed: true
   url: git://github.com/Shadowfiend/awesome_fields.git
