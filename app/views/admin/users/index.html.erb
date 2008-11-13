@@ -2,19 +2,19 @@
 
 <table class="index">
 <tr>
-	<th>ID</th>
-	<th>Name</th>
-	<th>Login</th>
-	<th>Email</th>
-	<th>Status</th>
+  <th>ID</th>
+  <th>Name</th>
+  <th>Login</th>
+  <th>Email</th>
+  <th>Status</th>
 </tr>
 <% for user in @users %>
 <tr>
-	<td><%=h user.id %></td>
-	<td><%=h user.last_first %></td>
-	<td><%= link_to h(user.login), admin_user_url(user) %></td>
-	<td><%=h user.email %></td>
-	<td><%=h user.state %></td>
+  <td><%=h user.id %></td>
+  <td><%=h user.last_first %></td>
+  <td><%= link_to h(user.login), admin_user_url(user) %></td>
+  <td><%=h user.email %></td>
+  <td><%=h user.state %></td>
 </tr>
 <% end %>
 </table>
