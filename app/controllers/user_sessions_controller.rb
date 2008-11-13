@@ -13,7 +13,7 @@ class UserSessionsController < ApplicationController
     # using_open_id? and authenticate_with_open_id use params[:openid_url] and
     # params[:open_id_complete] to deal with the redirecting to the openid
     # provider and coming back to us
-    if using_open_id?
+    if really_using_open_id?
       authenticate_with_open_id do |result, identity_url|
         if result.successful?
           user = User.find_by_open_id(identity_url)
@@ -21,11 +21,11 @@ class UserSessionsController < ApplicationController
             @user_session = UserSession.new(user) if user
           else
             flash[:error] = "Sorry, no user by that identity URL exists (#{identity_url})."
-            redirect_to new_user_session_path
+            redirect_to login_url
           end
         else
-          flash[:error] = "Open ID authentication failed."
-          redirect_to new_user_session_path
+          flash[:error] = "OpenID authentication failed."
+          redirect_to login_url
         end
       end
       return unless @user_session
@@ -42,8 +42,17 @@ class UserSessionsController < ApplicationController
   end
 
   def destroy
-    @user_session.destroy
+    logout!
     flash[:notice] = "Logout successful!"
-    redirect_back_or_default new_user_session_url
+    redirect_back_or_default default_url
+  end
+  
+  protected
+  
+  def really_using_open_id?
+    # if user puts something in the login field, assume he doesn't want OpenID
+    # idselector.com also puts "Click to Sign In" into the openid_url field
+    using_open_id? && params[:login].blank? && 
+      (params[:openid_url].blank? || !params[:openid_url].match(/^Click/))
   end
 end

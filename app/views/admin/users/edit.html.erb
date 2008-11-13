@@ -1,0 +1,11 @@
+<% title "Editing #{@user.login}" -%>
+
+<p><strong>The status of this account will not be modified!</strong></p>	
+
+<% lined_form_for @user, :url => admin_user_path(@user) do |f| %>
+  <%= f.error_messages %>
+  <%= partial "users/form", :f => f %>
+  <%= f.submit "Update" %>
+<% end %>
+
+<%= link_to 'Back', admin_users_path %>

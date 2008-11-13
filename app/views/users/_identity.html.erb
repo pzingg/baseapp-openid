@@ -1,10 +1,11 @@
 <div class="identity"> 
-<% label  = identity.new_record? ? "user_new_identity_attributes_" : "user_existing_identity_attributes_#{identity.id}" %> 
-<% prefix = identity.new_record? ? "user[new_identity_attributes][]" : "user[existing_identity_attributes][]" %> 
+<% label  = identity.new_record? ? "user_new_identity_attrs_" : "user_existing_identity_attrs_#{identity.id}" %> 
+<% prefix = identity.new_record? ? "user[new_identity_attrs][]" : "user[existing_identity_attrs][]" %> 
 <% fields_for prefix, identity do |idf| -%> 
-<div class="form_line"><label class="" for="<%= "#{label}_url" %>"><%= identity.new_record? ? 'New Open ID:' : 'Open ID:' %></label><%= idf.field :url %>
-<% if !identity.new_record? -%>
-<%= link_to_function "Dissassociate", "$(this).up('.identity').remove()" %>
-<% end -%></div>
+<% if identity.new_record? %>
+<div class="form_line"><label class="" for="<%= "#{label}_url" %>">New OpenID:</label><%= idf.field :url %></div>
+<% else -%>
+<div class="form_line"><label class="" for="<%= "#{label}_url" %>">Existing OpenID:</label><%=h identity.url %>&nbsp;<%= link_to_function "Dissassociate", "$(this).up('.identity').remove()" %>
+<% end -%>
 <% end -%> 
 </div> 

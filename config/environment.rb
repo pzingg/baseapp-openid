@@ -23,10 +23,6 @@ Rails::Initializer.run do |config|
   # Specify gems that this application depends on. 
   # They can then be installed with "rake gems:install" on new installations.
   # You have to specify the <tt>:lib</tt> option for libraries, where the Gem name (<em>sqlite3-ruby</em>) differs from the file itself (_sqlite3_)
-  # config.gem "bj"
-  # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
-  # config.gem "sqlite3-ruby", :lib => "sqlite3"
-  # config.gem "aws-s3", :lib => "aws/s3"
   config.gem 'configatron'
   config.gem 'mislav-will_paginate', :version => '~> 2.2.3', 
     :lib => 'will_paginate', 
@@ -79,5 +75,4 @@ Rails::Initializer.run do |config|
 
   # Activate observers that should always be running
   # Please note that observers generated using script/generate observer need to have an _observer suffix
-  # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
 end

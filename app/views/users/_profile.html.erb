@@ -1,0 +1,9 @@
+<div id="profile">
+<%- lined_fields_for('user[profile_attrs]', profile) do |prf| -%>
+<%= prf.field :first_name %>
+<%= prf.field :last_name %>
+<%= prf.field :sms_phone_number %>
+<%= prf.field :twitter_username %>
+<%= prf.field :meebo_id %>
+<%- end -%>
+</div>

@@ -3,12 +3,12 @@ class CreateUsers < ActiveRecord::Migration
     create_table :users do |t|
       t.string   :login
       t.string   :email
-      t.string   :state, :null => :false, :default => 'passive'
       t.string   :crypted_password
       t.string   :password_salt
-      t.string   :remember_token
+      t.string   :remember_token, :limit => 40
       t.string   :activation_code, :limit => 40
       t.string   :password_reset_code, :limit => 40
+      t.string   :state, :null => :false, :default => 'passive'
       t.integer  :login_count
       t.datetime :last_request_at
       t.datetime :last_login_at
@@ -18,9 +18,6 @@ class CreateUsers < ActiveRecord::Migration
       t.datetime :remember_token_expires_at
       t.string   :last_login_ip
       t.string   :current_login_ip
-      t.string   :im
-      t.string   :twitter
-      t.string   :cell_phone
 
       t.timestamps
     end

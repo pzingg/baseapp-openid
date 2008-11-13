@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
   
   def access_denied
     flash[:error] = "No entry"
-    redirect_to default_path
+    redirect_to default_url
   end
     
   private
@@ -45,12 +45,21 @@ class ApplicationController < ActionController::Base
   def current_user
     @current_user
   end
+  
+  def logout!
+    @current_user = nil
+    if @user_session
+      us = @user_session
+      @user_session = nil
+      us.destroy
+    end
+  end 
 
   def require_user
     unless @current_user
       store_location
       flash[:notice] = "You must be logged in to access this page"
-      redirect_to new_user_session_url
+      redirect_to login_url
       return false
     end
   end

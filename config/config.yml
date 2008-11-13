@@ -1,17 +1,19 @@
 # This file was auto-generated.  Feel free to customize it to your whim.
 
-development:
+development: &local
     site_name: Test Site
+    company_name: Buy N Large 
     admin_email: admin@test.com
-    site_url: http://localhost:3000/
+    support_name: Fixit Team
+    support_email: fixit@test.com
+    site_url: http://localhost:3000
+    auto_approve: false
 
 production:
-    site_name: Test Site
-    admin_email: admin@test.com
-    site_url: http://localhost:3000/
+  <<: *local
+
+staging:
+  <<: *local
 
 test:
-    site_name: Test Site
-    admin_email: admin@test.com
-    site_url: http://localhost:3000/
-
+  <<: *local

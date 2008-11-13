@@ -19,9 +19,12 @@
   <h2>Currently Logged In Users</h1>
   <p><%= pluralize User.logged_in.count, "user" %> currently logged in</p> <!-- This based on last_request_at, if they were active < 10 minutes they are logged in -->
   <p><%- if !@current_user -%>
-    <%= link_to "Log In", new_user_session_path %> |
+    <%= link_to "Log In", login_path %> |
     <%= link_to "Sign Up", new_account_path %>
   <%- else -%>
+  <%- if @current_user.admin? -%>
+    <%= link_to "Admin", admin_users_path %> |
+  <%- end -%>
     <%= link_to "My Account", account_path %> |
     <%= link_to "Log Out", user_session_path, :method => :delete, :confirm => "Are you sure you want to logout?" %>
   <%- end -%></p>
