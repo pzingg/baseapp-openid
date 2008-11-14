@@ -96,7 +96,7 @@ class User < ActiveRecord::Base
   end
   
   acts_as_authentic :crypto_provider => PasswordEncryption
-  # authlogic hooks
+  # authlogic functions we can call
   #
   #   User.crypto_provider        The class that you set in your :crypto_provider option
   #   User.forget_all!            Finds all records, loops through them, and calls forget! on each record. This is paginated to save on memory.
@@ -132,9 +132,23 @@ class User < ActiveRecord::Base
     !self.identities.blank?
   end
   
+  def has_email?
+    !self.email.blank?
+  end
+  
   def last_first
     sep = (last_name.blank? || first_name.blank?) ? '' : ', '
     "#{last_name}#{sep}#{first_name}"
+  end
+  
+  def password_with_case=(pass)
+    return if pass.blank?
+    self.tried_to_set_password = true
+    pass = pass.downcase if configatron.downcase_passwords
+    @password_with_case = pass
+    self.remember_token = self.class.unique_token
+    self.password_salt = self.class.unique_token
+    self.crypted_password = crypto_provider.encrypt(@password_with_case + self.password_salt)
   end
   
   # Returns true if the user has just been activated.
@@ -145,13 +159,33 @@ class User < ActiveRecord::Base
   # def password_required?
   #   new_record? ? has_login? && (crypted_password.blank? || !password.blank?) : !password.blank?
   # end
+  
+  # ovveride authlogic for case sensitivity
+  def password=(pass)
+    return if pass.blank?
+    self.tried_to_set_password = true
+    pass = pass.downcase if configatron.downcase_passwords
+    @password = pass
+    self.remember_token = self.class.unique_token
+    self.password_salt = self.class.unique_token
+    self.crypted_password = crypto_provider.encrypt(@password + password_salt)
+  end
+  
+  # override authlogic for case sensitivity
+  def valid_password?(attempted_password)
+    attempted_password = attempted_password.downcase if configatron.downcase_passwords
+    return false if attempted_password.blank? || crypted_password.blank? || password_salt.blank?
+    attempted_password == crypted_password ||
+      (crypto_provider.respond_to?(:decrypt) && crypto_provider.decrypt(crypted_password) == attempted_password + password_salt) ||
+      (!crypto_provider.respond_to?(:decrypt) && crypto_provider.encrypt(attempted_password + password_salt) == crypted_password)
+  end
 
   # Creates a new password for the user, and notifies him with an email
-  # overrides authlogic to use pronouncable password, and to email the user
+  # override authlogic to use pronouncable password, and to email the user
   def reset_password!
     newpass = self.class.random_pronouncable_password(3)
     self.password = newpass
-    self.password_confirmation = newpass
+    self.confirm_password = newpass
     self.password_reset_code = nil
     save_without_session_maintenance(false)
 
@@ -239,9 +273,9 @@ class User < ActiveRecord::Base
     end
 
     def random_pronouncable_password(size = 6)
-      consonants = %w(b c d f g h j k l m n p qu r s t v w x z ch cr fr nd ng nk nt ph pr rd sh sl sp
-    st th tr 0 1 2 3 4 5 6 7 8 9 0)
-      vocals = %w(a e i o u y)
+      # skip 0, 1, o, i, L, 5, s because they are so confusing
+      consonants = %w(b c d f g h j k m n p qu r t v w x z ch cr fr nd ng nk nt ph pr rd th tr 2 3 4 6 7 8 9)
+      vocals = %w(a e u y)
 
       alternate=true
       password=''
@@ -249,10 +283,9 @@ class User < ActiveRecord::Base
       (size * 2).times do
         # get a random vocal or consonant
         chunk = (alternate ? consonants[rand * consonants.size] : vocals[rand * vocals.size])
-        alternate = !alternate
-        # randomly swap its case & add to password
-        chunk = chunk.swapcase if rand > 0.5
+        chunk = chunk.upcase if !configatron.downcase_passwords && (rand > 0.5)
         password << chunk
+        alternate = !alternate
       end
       password
     end
@@ -272,11 +305,11 @@ class User < ActiveRecord::Base
 
   def make_activation_code
     self.deleted_at = nil
-    self.activation_code = self.class.make_token
+    self.activation_code = self.class.make_token[40, 40]
   end
 
   def make_password_reset_code
-    self.password_reset_code = self.class.make_token
+    self.password_reset_code = self.class.make_token[40, 40]
   end
   
   def check_auto_approval

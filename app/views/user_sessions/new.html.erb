@@ -5,12 +5,13 @@
   <input type="text" name="openid_url" id="openid_identifier" />
   </fieldset>
   <fieldset><legend>Or using a password</legend>
-  <%= f.text_field :login %>
-  <%= f.password_field :password %>
+  <%= f.text_field :login, :size => 20 %>
+  <%= f.password_field :password, :size => 20 %>
   <%= f.check_box :remember_me %>
   </fieldset>
   <%= f.submit "Login" %>
+<% end %>
+<p><%= link_to "Trouble logging in?", troubleshooting_help_path %></p>
 <!-- BEGIN ID SELECTOR -->
 <script type="text/javascript" id="__openidselector" src="https://www.idselector.com/selector/96ae06e86c446a7054d56bab9edbd09b1d6f6e43" charset="utf-8"></script>
 <!-- END ID SELECTOR -->
-<% end %>

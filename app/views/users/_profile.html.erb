@@ -1,9 +1,9 @@
 <div id="profile">
 <%- lined_fields_for('user[profile_attrs]', profile) do |prf| -%>
-<%= prf.field :first_name %>
-<%= prf.field :last_name %>
-<%= prf.field :sms_phone_number %>
-<%= prf.field :twitter_username %>
-<%= prf.field :meebo_id %>
+<%= prf.field :first_name, :size => 20 %>
+<%= prf.field :last_name, :size => 20 %>
+<%= prf.field :sms_phone_number, :size => 20, :label => 'SMS phone number' %>
+<%= prf.field :twitter_username, :size => 20 %>
+<%= prf.field :meebo_id, :size => 20, :label => 'Meebo ID' %>
 <%- end -%>
 </div>

@@ -1,0 +1,15 @@
+<% title "What seems to be the problem?" -%>
+
+<p>
+	You have indicated you are having trouble logging in to <%= configatron.site_name %>. What seems to be the problem?
+</p>
+
+<ul>
+	<li><%= link_to "I don't remember my password", forgot_password_help_path %></li>
+	<li><%= link_to "I forgot my login, but I know my email", forgot_login_help_path %></li>
+	<li><%= link_to "I don't remember my login, email or password!", clueless_help_path %></li>
+</ul>
+
+<p>
+	<%= link_to "&laquo; Go back", login_path %>
+</p>

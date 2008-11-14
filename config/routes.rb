@@ -1,6 +1,4 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :profiles
-
   map.resources :users
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -45,22 +43,19 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users
   
   # RESTful rewrites from baseapp
-  map.signup   '/signup',   :controller => 'users',    :action => 'new'
   map.login    '/login',    :controller => 'user_sessions', :action => 'new'
   map.logout   '/logout',   :controller => 'user_sessions', :action => 'destroy', :conditions => {:method => :delete}
+
+  map.signup   '/signup',   :controller => 'users',    :action => 'new'
   map.register '/register', :controller => 'users',    :action => 'create'
-  map.activate '/activate/:activation_code', :controller => 'users',    :action => 'activate'
   
-  # User interactions from baseapp
-  map.user_troubleshooting '/users/troubleshooting', :controller => 'users', :action => 'troubleshooting'
-  map.user_forgot_password '/users/forgot_password', :controller => 'users', :action => 'forgot_password'
-  map.user_reset_password  '/users/reset_password/:password_reset_code', :controller => 'users', :action => 'reset_password'
-  map.user_forgot_login    '/users/forgot_login',    :controller => 'users', :action => 'forgot_login'
-  map.user_clueless        '/users/clueless',        :controller => 'users', :action => 'clueless'
-  
-  map.resources :users, :member => { 
-    :edit_password => :get, :update_password => :put,
-    :edit_email => :get, :upage_email => :put }
+  map.activate        '/activate/:activation_code',           :controller => 'users', :action => 'activate'
+  map.reset_password  '/reset_password/:password_reset_code', :controller => 'users', :action => 'reset_password'
+
+  map.troubleshooting_help '/help/troubleshooting', :controller => 'help', :action => 'troubleshooting'
+  map.forgot_login_help    '/help/forgot_login',    :controller => 'help', :action => 'forgot_login'
+  map.forgot_password_help '/help/forgot_password', :controller => 'help', :action => 'forgot_password'
+  map.clueless_help        '/help/clueless',        :controller => 'help', :action => 'clueless'
                                      
   # Administrator interface from baseapp
   map.namespace(:admin) do |admin|

@@ -16,7 +16,7 @@ class UserMailer < ActionMailer::Base
   def forgot_password(user)
     setup_email(user)
     @subject += "Forgotten password instructions"
-    @body[:url]  = "#{configatron.site_url}/users/reset_password/#{user.password_reset_code}"
+    @body[:url]  = "#{configatron.site_url}/reset_password/#{user.password_reset_code}"
   end
   
   def forgot_login(user)

@@ -1,18 +1,12 @@
 class UsersController < ApplicationController
   before_filter :require_no_user, :only => [:new, :create]
-  before_filter :require_user, :only => [:index, :show, :edit, :update, :destroy,
-    :edit_password, :update_password, :edit_email, :update_email]
-  require_role "admin", :for => [:index, :destroy]
+  before_filter :require_user, :only => [:show, :edit, :update]
   
   # GET /users
   # GET /users.xml
   def index
-    @users = User.find(:all)
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @users }
-    end
+    # index not implemented - only admins may list users
+    raise "This action is not implemented"
   end
 
   # GET /users/1
@@ -47,6 +41,9 @@ class UsersController < ApplicationController
     @user = current_user
     @user.build_profile unless @user.profile
     @user.identities.build
+    unless configatron.user_can_change_login
+      @user_login_is_readonly = true
+    end
   end
 
   # POST /users
@@ -92,7 +89,11 @@ class UsersController < ApplicationController
   def update
     # @user = User.find(params[:id])
     @user = current_user # makes our views "cleaner" and more consistent
-    params[:user][:existing_identity_attrs] ||= {} 
+    params[:user][:existing_identity_attrs] ||= {}
+    unless configatron.user_can_change_login
+      params[:user].delete(:login)
+      @user_login_is_readonly = true
+    end
     
     respond_to do |format|
       if @user.update_attributes(params[:user])
@@ -110,63 +111,7 @@ class UsersController < ApplicationController
   # DELETE /users/1.xml
   def destroy
     # destroy not implemented - only admins may "purge" or "delete" users
-    raise "method not implemented"
-  end
-  
-  def troubleshooting
-    # Render troubleshooting.html.erb
-    # render :layout => 'login'
-  end
-
-  def clueless
-    # These users are beyond our automated help...
-    # render :layout => 'login'
-  end
-
-  def forgot_login    
-    if request.put?
-      begin
-        @user = User.find_by_email(params[:email], :conditions => ['NOT state = ?', 'deleted'])
-        
-        if !@user.has_login?
-          flash[:notice] = "Sorry.  We cannot help you if you're using OpenID!"
-          redirect_to :back
-        end
-      rescue
-        @user = nil
-      end
-      
-      if @user.nil?
-        flash.now[:error] = 'No account was found with that email address.'
-      else
-        UserMailer.deliver_forgot_login(@user) 
-      end
-    else
-      # Render forgot_login.html.erb
-    end
-    
-    # render :layout => 'login'
-  end
-
-  def forgot_password    
-    if request.put?
-      @user = User.find_by_login_or_email(params[:email_or_login])
-
-      if @user.nil?
-        flash.now[:error] = 'No account was found by that login or email address.'
-      else
-        if !@user.has_login?
-          flash[:notice] = "You cannot reset your password here. You are using OpenID!"
-          redirect_to :back
-        else
-          @user.forgot_password if @user.active?
-        end
-      end
-    else
-      # Render forgot_password.html.erb
-    end
-    
-    # render :layout => 'login'
+    raise "This action is not implemented"
   end
   
   def reset_password    
@@ -198,89 +143,8 @@ class UsersController < ApplicationController
       flash[:error]  = "We couldn't find a user with that activation code -- check your email? Or maybe you've already activated -- try signing in."
       redirect_back_or_default default_url
     end
-  end
-  
-  def edit_password
-    # @user = User.find(params[:id])
-    @user = current_user
-    if !@user.has_login?
-      flash[:notice] = "You cannot update your password. You are using OpenID!"
-      redirect_to :back
-    end
-    
-    # render edit_password.html.erb
-  end
-  
-  def update_password    
-    # @user = User.find(params[:id])
-    @user = current_user
-    if !@user.has_login?
-      flash[:notice] = "You cannot update your password. You are using OpenID!"
-      redirect_to :back
-    end
-    
-    if current_user == @user
-      current_password, new_password, new_password_confirmation = params[:current_password], params[:new_password], params[:new_password_confirmation]
-      
-      if User.encrypt(current_password, @user.salt) == @user.crypted_password
-        if new_password == new_password_confirmation
-          if new_password.blank? || new_password_confirmation.blank?
-            flash[:error] = "You cannot set a blank password."
-            redirect_to edit_password_user_url(@user)
-          else
-            @user.password = new_password
-            @user.password_confirmation = new_password_confirmation
-            @user.save
-            flash[:notice] = "Your password has been updated."
-            redirect_to profile_url(@user)
-          end
-        else
-          flash[:error] = "Your new password and it's confirmation don't match."
-          redirect_to edit_password_user_url(@user)
-        end
-      else
-        flash[:error] = "Your current password is not correct. Your password has not been updated."
-        redirect_to edit_password_user_url(@user)
-      end
-    else
-      flash[:error] = "You cannot update another user's password!"
-      redirect_to edit_password_user_url(@user)
-    end
-  end
-  
-  def edit_email
-    # @user = User.find(params[:id])
-    @user = current_user
-    if !@user.has_login?
-      flash[:notice] = "You cannot update your email address. You are using OpenID!"
-      redirect_to :back
-    end
-    
-    # render edit_email.html.erb
-  end
-  
-  def update_email
-    # @user = User.find(params[:id])
-    @user = current_user
-    if !@user.has_login?
-      flash[:notice] = "You cannot update your email address. You are using OpenID!"
-      redirect_to :back
-    end
-    
-    if current_user == @user
-      if @user.update_attributes(:email => params[:email])
-        flash[:notice] = "Your email address has been updated."
-        redirect_to profile_url(@user)
-      else
-        flash[:error] = "Your email address could not be updated."
-        redirect_to edit_email_user_url(@user)
-      end
-    else
-      flash[:error] = "You cannot update another user's email address!"
-      redirect_to edit_email_user_url(@user)
-    end
-  end
-  
+  end  
+
   protected
 
   def find_user

@@ -53,7 +53,7 @@ module AwesomeFields
     alias :field_for :field
 
     def string_field(method, *args)
-      opts, html_opts = html_and_other_options_from(args)
+      opts, html_opts = html_and_other_options_from(args.dup)
       if opts[:long]
         self.text_area method, *args
       else

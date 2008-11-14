@@ -7,7 +7,9 @@ development: &local
     support_name: Fixit Team
     support_email: fixit@test.com
     site_url: http://localhost:3000
+    downcase_passwords: true
     auto_approve: false
+    user_can_change_login: false
 
 production:
   <<: *local
