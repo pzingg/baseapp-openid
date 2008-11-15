@@ -23,18 +23,16 @@ Rails::Initializer.run do |config|
   # Specify gems that this application depends on. 
   # They can then be installed with "rake gems:install" on new installations.
   # You have to specify the <tt>:lib</tt> option for libraries, where the Gem name (<em>sqlite3-ruby</em>) differs from the file itself (_sqlite3_)
-  config.gem 'configatron'
-  config.gem 'mislav-will_paginate', :version => '~> 2.2.3', 
-    :lib => 'will_paginate', 
-    :source => 'http://gems.github.com'
-  config.gem 'authlogic'
-  config.gem 'rubyist-aasm', :version => '>= 2.0',
-    :lib => 'aasm',
-    :source => 'http://gems.github.com'
+  config.gem 'lockfile',       :version => '>= 1.4'
+  config.gem 'configatron',    :version => '>= 2.1'
+  config.gem 'authlogic',      :version => '>= 1.0'
+  config.gem 'rubyist-aasm',   :version => '>= 2.0',
+    :lib => 'aasm',            :source => 'http://gems.github.com'
+  config.gem 'mislav-will_paginate',     :version => '~> 2.2.3', 
+    :lib => 'will_paginate',   :source => 'http://gems.github.com'
   config.gem 'jcnetdev-better_partials', :version => '>= 1.0',
-    :lib => 'better_partials',
-    :source => 'http://gems.github.com'
-  config.gem 'ruby-openid', :version => '>= 2.0.4',
+    :lib => 'better_partials', :source => 'http://gems.github.com'
+  config.gem 'ruby-openid',    :version => '>= 2.0.4',
     :lib => 'openid'
 
   # Only load the plugins named here, in the order given. By default, all plugins 
@@ -48,6 +46,9 @@ Rails::Initializer.run do |config|
   # Force all environments to use the same logger level
   # (by default production uses :info, the others :debug)
   # config.log_level = :debug
+  
+  # Mail fetching task will set this, so we don't have too verbose output 
+  config.log_level = :warn # if ENV[LOG_QUIET]
 
   # Make Time.zone default to the specified zone, and make Active Record store time values
   # in the database in UTC, and return them converted to the specified local zone.

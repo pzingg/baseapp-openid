@@ -7,8 +7,8 @@ log/*
 tmp/*
 db/*.db
 db/schema.rb
-config/app_config.rb
-config/app_config.yml
+config/config.yml
+config/mail.yml
 config/database.yml
 config/smtp.yml
 config/ldap.yml

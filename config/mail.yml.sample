@@ -1,0 +1,17 @@
+# mail fetcher configuration
+development: &local
+    type: imap 
+    username: adminmail@gmail.com
+    password: hackme 
+    processed_folder: processed
+    error_folder: errors 
+    server: imap.gmail.com 
+    ssl: true 
+    port: 993
+    use_login: true
+
+test:
+  <<: *local
+
+production:
+  <<: *local
