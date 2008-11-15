@@ -1,5 +1,8 @@
 Hello <%= @user.login %>,
 
+You recently requested the user name that corresponds to this
+email address: <%= @user.email %>
+
 Your <%= @site_name %> account login is:
 
   <%= @user.login %>
@@ -7,6 +10,8 @@ Your <%= @site_name %> account login is:
 You may login by visiting the following link:
 
   <%= @url %>
+
+If you believe you were sent this email in error, please let us know.
 
 Best regards, 
 

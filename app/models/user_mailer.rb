@@ -31,14 +31,19 @@ class UserMailer < ActionMailer::Base
     @body[:url]  = "#{configatron.site_url}/"
   end
   
-  def password_reminder(user)
+  def password_reminder(user, admin_email=nil)
     setup_email(user)
-    @subject    += 'Passwords for your account'
+    if !admin_email.blank?
+      @recipients = admin_email
+      @subject   += "Passwords for user #{user.email}"
+    else
+      @subject   += 'Passwords for your account'
+    end
     @body[:url]  = "#{configatron.site_url}/"
   end
   
   def admin_notification(user, subject)
-    @recipients  = configatron.support_email
+    @recipients  = configatron.admin_emails.first
     @from        = "#{configatron.support_name} <#{configatron.support_email}>"
     @subject     = "[#{configatron.site_name}] #{subject}"
     @sent_on     = Time.now

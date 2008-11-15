@@ -48,7 +48,7 @@ Rails::Initializer.run do |config|
   # config.log_level = :debug
   
   # Mail fetching task will set this, so we don't have too verbose output 
-  config.log_level = :warn # if ENV[LOG_QUIET]
+  config.log_level = :warn if ENV['LOG_QUIET']
 
   # Make Time.zone default to the specified zone, and make Active Record store time values
   # in the database in UTC, and return them converted to the specified local zone.

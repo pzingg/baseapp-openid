@@ -1,13 +1,19 @@
 Hello <%= @user.login %>,
 
-An account has been created for you at <%= @site_name %>. Your login credentials are:
+Either you or someone else recently registered for an account at <%= @site_name %>.
+The account has been created with these login credentials:  
 
   Username: <%= @user.login %>
   Password: <%= @password %>
 
-Before you can access your account, we require you to activate it. You can activate your account now by visiting the following url:
+Please keep these credentials in a safe place.
+
+Before you can access your account, we require you to activate it. You can
+activate your account now by visiting the following url:
 
   <%= @url %>
+
+If you believe you were sent this email in error, please let us know.
 
 Best regards, 
 

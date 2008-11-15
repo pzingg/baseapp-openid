@@ -7,15 +7,15 @@
 # user_can_change_login = true if users can change their own username
 
 development: &local
-    site_name: Test Site
-    company_name: Buy N Large 
-    support_name: Fixit Team
-    support_email: fixit@test.com
-    site_url: http://localhost:3000
-    admin_emails: [ admin1@test.com, admin2@test.com ]
-    downcase_passwords: true
-    auto_approve: false
-    user_can_change_login: false
+  site_name: Test Site
+  company_name: Buy N Large 
+  support_name: Fixit Team
+  support_email: fixit@test.com
+  site_url: http://localhost:3000
+  admin_emails: [ admin1@test.com, admin2@test.com ]
+  downcase_passwords: true
+  auto_approve: false
+  user_can_change_login: false
 
 production:
   <<: *local

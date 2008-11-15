@@ -11,9 +11,9 @@ class FetcherTask
     begin 
       Lockfile.new('cron_mail_fetcher.lock', :retries => 0) do 
         config = YAML.load_file("#{RAILS_ROOT}/config/mail.yml") 
-        config = config[RAILS_ENV].to_options 
+        opts = config[RAILS_ENV]['incoming'].to_options 
         puts "Running Fetcher in #{RAILS_ENV} mode" 
-        fetcher = Fetcher.create({ :receiver => Inbox }.merge(config)) 
+        fetcher = Fetcher.create({ :receiver => Inbox }.merge(opts)) 
         fetcher.fetch 
         puts "Finished running Fetcher in #{RAILS_ENV} mode" 
       end 
