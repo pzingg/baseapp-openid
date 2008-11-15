@@ -34,7 +34,7 @@ vendor/plugins/open_id_authentication:
   revision: 00d8bc7f97b9a3113e004475b63dbf84f5397237
   branch: master
   remote: braid/vendor/plugins/open-id-authentication
-vendor/plugins/configatron-rails: 
+vendor/plugins/configatron_rails: 
   squashed: true
   url: git://github.com/cmaggard/configatron-rails.git
   type: git
