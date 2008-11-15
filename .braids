@@ -27,6 +27,13 @@ vendor/plugins/role_requirement:
   revision: 0140050d6676ffa8519e5b1f7c146bd72c02e1da
   branch: master
   remote: braid/vendor/plugins/role-requirement
+vendor/plugins/fetcher: 
+  squashed: true
+  url: git://github.com/randy/fetcher.git
+  type: git
+  revision: 548fd76112e518de4e49aa2c86c7870fa9fd9ec2
+  branch: master
+  remote: braid/vendor/plugins/fetcher
 vendor/plugins/open_id_authentication: 
   squashed: true
   url: git://github.com/rails/open_id_authentication.git
