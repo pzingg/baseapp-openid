@@ -6,6 +6,13 @@ vendor/plugins/static_actions:
   revision: 04f723450d115c8e42db18b8a493e0556b18e3da
   branch: master
   remote: braid/vendor/plugins/static-actions
+vendor/plugins/action_mailer_optional_tls: 
+  squashed: true
+  url: git://github.com/collectiveidea/action_mailer_optional_tls.git
+  type: git
+  revision: 5b68c80eac31aba8f0925b160f3bedc72722d215
+  branch: master
+  remote: braid/vendor/plugins/action-mailer-optional-tls
 vendor/plugins/awesome_fields: 
   squashed: true
   url: git://github.com/Shadowfiend/awesome_fields.git
