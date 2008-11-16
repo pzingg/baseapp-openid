@@ -61,7 +61,8 @@ config.gem 'ruby-openid'
 braid add -p git://github.com/rails/open_id_authentication.git
 rake open_id_authentication:db:create
 
-
 See http://railscasts.com/episodes/19-where-administration-goes
 See http://www.vimeo.com/637894
 See baseapp project
+
+9. Add mail fetcher/captcha stuff

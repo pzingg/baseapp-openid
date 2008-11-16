@@ -15,6 +15,8 @@ included)
   - jquery support (from blank project; not yet included)
 (simplified_starling, tlsmail, fetcher gems)
 
+Built against Rails 2.2.1 (in vendor/rails).
+
 Many thanks to authors of "these starter app" frameworks and full-blown
 applications:
 
@@ -28,20 +30,21 @@ applications:
   lovdbyless - http://lovdbyless.com
   openid-rails-kit - http://github.com/stympy/openid-rails-kit
 
-And of these gems and plugins:
+And of these gems and plugins.  Plugins are managed by the braid
+project (see .braids file); gems are specified in environment.rb:
 
-  aasm
-  authlogic
-  awesome_fields
-  better_partials
-  configatron
-  configatron_rails
-  fetcher
-  lockfile
-  open_id_authentication
-  recaptcha
-  role_requirement
-  static_actions
-  will_paginate
+  aasm - http://github.com/rubyist/aasm
+  action_mailer_optional_tls (only necessary with Rails < 2.1)
+  authlogic - http://github.com/binarylogic/authlogic
+  awesome_fields - http://github.com/Shadowfiend/awesome_fields
+  better_partials - http://github.com/jcnetdev/better_partials
+  configatron - http://github.com/cmaggard/configatron-rails
+  fetcher - http://github.com/randy/fetcher
+  lockfile - http://rubyforge.org/projects/codeforpeople
+  open_id_authentication - http://github.com/rails/open_id_authentication
+  recaptcha - http://github.com/ambethia/recaptcha
+  role_requirement - http://github.com/timcharper/role_requirement
+  static_actions - http://github.com/ryanb/static_actions
+  will_paginate- http://github.com/mislav/will_paginate
 
 See INSTALL for more info on how this project was built.
