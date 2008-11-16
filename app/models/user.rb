@@ -331,9 +331,6 @@ class User < ActiveRecord::Base
     self.deleted_at = self.activation_code = nil
   end
   
-  def approve_if_required
-  end
-  
   def do_delete
     self.deleted_at = Time.now.utc
   end
