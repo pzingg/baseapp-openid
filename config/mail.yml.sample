@@ -1,14 +1,15 @@
 # mail fetcher configuration
 development: &local
-	outgoing:
-	  delivery_method: :smtp
-	  address: address
-	  port: 25
-	  domain: www.mydomain.com
-	  user_name: myusername@my_domain.com
-	  password: my_password
-	  authentication: :login  
-	incoming:
+  outgoing:
+    delivery_method: :smtp
+    address: smtp.example.com
+    port: 25
+    tls: false
+    domain: example.com
+    user_name: user
+    password: password
+    authentication: :login
+  incoming:
     type: imap 
     username: adminmail@gmail.com
     password: hackme 
