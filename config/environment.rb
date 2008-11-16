@@ -77,3 +77,6 @@ Rails::Initializer.run do |config|
   # Activate observers that should always be running
   # Please note that observers generated using script/generate observer need to have an _observer suffix
 end
+
+ENV['RECAPTCHA_PUBLIC_KEY'] = configatron.recaptcha_public_key
+ENV['RECAPTCHA_PRIVATE_KEY'] = configatron.recaptcha_private_key

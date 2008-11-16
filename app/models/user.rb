@@ -141,6 +141,10 @@ class User < ActiveRecord::Base
     "#{last_name}#{sep}#{first_name}"
   end
   
+  def last_login_s
+    last_login_at.nil? ? 'Never' : last_login_at.to_s(:short)
+  end
+  
   def password_with_case=(pass)
     return if pass.blank?
     self.tried_to_set_password = true
