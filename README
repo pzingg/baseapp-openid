@@ -8,9 +8,40 @@ Goals:
   - administrative interface (from baseapp project)
   - yaml configuration (configatron gem)
   - use DRY form builders (awesome_fields and better_partials gems)
-  - support seo-friendly URLs (friendly_id and static_actions gems)
-  - thor task system (from blank project)
-  - jquery support (from blank project)
-  - improved outgoing and incoming mail handling and background tasks (simplified_starling, tlsmail, fetcher gems)
+  - improved outgoing and incoming mail handling and background tasks 
+  - seo-friendly URLs (friendly_id and static_actions gems; not yet 
+included)
+  - thor task system (from blank project; not yet included)
+  - jquery support (from blank project; not yet included)
+(simplified_starling, tlsmail, fetcher gems)
 
-See INSTALL for how it was built.
+Many thanks to authors of "these starter app" frameworks and full-blown
+applications:
+
+  appstarter - http://github.com/nileshtrivedi/appstarter
+  baseapp - http://github.com/ariejan/baseapp
+  blank - http://github.com/giraffesoft/blank
+  bort - http://github.com/fudgestudios/bort
+  communityengine - http://github.com/bborn/communityengine
+  embark - http://github.com/lwallenstein/embark
+  insoshi - http://portal.insoshi.com
+  lovdbyless - http://lovdbyless.com
+  openid-rails-kit - http://github.com/stympy/openid-rails-kit
+
+And of these gems and plugins:
+
+  aasm
+  authlogic
+  awesome_fields
+  better_partials
+  configatron
+  configatron_rails
+  fetcher
+  lockfile
+  open_id_authentication
+  recaptcha
+  role_requirement
+  static_actions
+  will_paginate
+
+See INSTALL for more info on how this project was built.

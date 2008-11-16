@@ -5,6 +5,8 @@
 # downcase_passwords = true to disregard password case
 # auto_approve = true to activate new users without administrator approval
 # user_can_change_login = true if users can change their own username
+# recaptcha_public_key and recaptcha_private_key are used by environment.rb
+#   to set recaptcha.net environment variables
 
 development: &local
   site_name: Test Site
@@ -16,6 +18,8 @@ development: &local
   downcase_passwords: true
   auto_approve: false
   user_can_change_login: false
+  recaptcha_public_key: 'a-very-long-public-key'
+  recaptcha_private_key: 'a-very-long-private-key'
 
 production:
   <<: *local
