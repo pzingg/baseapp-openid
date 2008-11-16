@@ -55,3 +55,10 @@ vendor/plugins/configatron_rails:
   revision: 9297d5f38b5c93b1c99c7a00060e677fcf0e91ed
   branch: master
   remote: braid/vendor/plugins/configatron-rails
+vendor/plugins/recaptcha: 
+  squashed: true
+  url: git://github.com/ambethia/recaptcha.git
+  type: git
+  revision: 045e10b0224deed6f9242910edf922a23dbb0751
+  branch: master
+  remote: braid/vendor/plugins/recaptcha
