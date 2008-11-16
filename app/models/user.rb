@@ -145,16 +145,6 @@ class User < ActiveRecord::Base
     last_login_at.nil? ? 'Never' : last_login_at.to_s(:short)
   end
   
-  def password_with_case=(pass)
-    return if pass.blank?
-    self.tried_to_set_password = true
-    pass = pass.downcase if configatron.downcase_passwords
-    @password_with_case = pass
-    self.remember_token = self.class.unique_token
-    self.password_salt = self.class.unique_token
-    self.crypted_password = crypto_provider.encrypt(@password_with_case + self.password_salt)
-  end
-  
   # Returns true if the user has just been activated.
   def recently_activated?
     @activated
