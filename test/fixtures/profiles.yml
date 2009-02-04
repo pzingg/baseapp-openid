@@ -24,9 +24,9 @@ one:
   user_id: 1
   first_name: MyString
   last_name: MyString
-  sms: MyString
-  im: MyString
-  twitter: MyString
+  sms_phone_number: MyString
+  meebo_id: MyString
+  twitter_username: MyString
   student_number: 1
   home_id: 1
   teacher_number: 1
@@ -36,9 +36,9 @@ two:
   user_id: 1
   first_name: MyString
   last_name: MyString
-  sms: MyString
-  im: MyString
-  twitter: MyString
+  sms_phone_number: MyString
+  meebo_id: MyString
+  twitter_username: MyString
   student_number: 1
   home_id: 1
   teacher_number: 1
