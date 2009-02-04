@@ -4,7 +4,7 @@
 <%= f.field :login, { :size => 20 }.merge(login_opts) %>
 <%= f.field :email, :size => 40 %>
 <%= f.password_field :password, :size => 20, :label => (f.object.new_record? ? nil : "Change password") %>
-<%= f.password_field :confirm_password, :size => 20 %>
+<%= f.password_field :password_confirmation, :size => 20 %>
 <%= partial 'users/profile', :object => @user.profile %>
 <div id="identities"> 
 <%= partial 'users/identity', :collection => @user.identities %> 
