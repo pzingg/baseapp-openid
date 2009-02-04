@@ -1,4 +1,32 @@
+** Begin Fixes Needed **
+
+The "rake test" step still fails. Don't use this yet. 
+
+Peter Zingg probably built this for some student or social networking related purpose, judging by the profile fields. I'm toying with removing those for my own baseapp. I need a different model there for most projects I can think of. Expect later revisions to remove social networking fields and to see a branch with business oriented fields.
+
+** End Fixes Needed **
+
 Newly designed account management system based on latest gems and plugins.
+
+_Getting Going_
+
+Sign up for Github, if you haven't already, and fork this project, for free.
+Clone from *your* fork (the one labelled: Your Clone URL).
+
+Sign up for recaptcha and get public and private API keys at http://www.recaptcha.net
+Create config/database.yml ; horrible things happen if you don't
+Copy config/config.yml.sample to config/config.yml; edit, at least for recaptcha keys
+Copy config/mail.yml.sample to config/mail.yml; edit to suit
+Make the "log" directory (mkdir log)
+Run rake db:migrate
+Run rake test; fix any reported problems
+Run script/server; test the UI works as you expect
+
+Done. 
+
+You can now start mutating and evolving this in your own branch. Good luck.
+
+Peter Zingg put in a lot of work to make this baseapp. Thanks for making it available Peter. Saved me a lot of time!
 
 Goals:
   - use authlogic gem to handle session authentication
@@ -39,6 +67,7 @@ project (see .braids file); gems are specified in environment.rb:
   awesome_fields - http://github.com/Shadowfiend/awesome_fields
   better_partials - http://github.com/jcnetdev/better_partials
   configatron - http://github.com/cmaggard/configatron-rails
+  ezcrypto
   fetcher - http://github.com/randy/fetcher
   lockfile - http://rubyforge.org/projects/codeforpeople
   open_id_authentication - http://github.com/rails/open_id_authentication
