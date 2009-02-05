@@ -28,9 +28,12 @@
 #  updated_at                :datetime
 #
 
-class User < ActiveRecord::Base  
+class User < ActiveRecord::Base
   include AASM
-  
+  # for options see documentation: Authlogic::ORMAdapters::ActiveRecordAdapter::ActsAsAuthentic::Config
+  acts_as_authentic :crypto_provider => Authlogic::CryptoProviders::BCrypt
+  # acts_as_authentic :crypto_provider => PasswordEncryption
+    
   # Relations
   has_and_belongs_to_many :roles
   has_many :identities, :dependent => :destroy
@@ -95,7 +98,6 @@ class User < ActiveRecord::Base
     transitions :from => :suspended, :to => :passive
   end
   
-  acts_as_authentic :crypto_provider => PasswordEncryption
   # authlogic functions we can call
   #
   #   User.crypto_provider        The class that you set in your :crypto_provider option
@@ -154,25 +156,25 @@ class User < ActiveRecord::Base
   #   new_record? ? has_login? && (crypted_password.blank? || !password.blank?) : !password.blank?
   # end
   
-  # ovveride authlogic for case sensitivity
-  def password=(pass)
-    return if pass.blank?
-    self.tried_to_set_password = true
-    pass = pass.downcase if configatron.downcase_passwords
-    @password = pass
-    self.remember_token = self.class.unique_token
-    self.password_salt = self.class.unique_token
-    self.crypted_password = crypto_provider.encrypt(@password + password_salt)
-  end
+  # override authlogic for case sensitivity
+#  def password=(pass)
+#    return if pass.blank?
+#    self.tried_to_set_password = true
+#    pass = pass.downcase if configatron.downcase_passwords
+#    @password = pass
+#    self.remember_token = self.class.unique_token
+#    self.password_salt = self.class.unique_token
+#    self.crypted_password = crypto_provider.encrypt(@password + password_salt)
+#  end
   
   # override authlogic for case sensitivity
-  def valid_password?(attempted_password)
-    attempted_password = attempted_password.downcase if configatron.downcase_passwords
-    return false if attempted_password.blank? || crypted_password.blank? || password_salt.blank?
-    attempted_password == crypted_password ||
-      (crypto_provider.respond_to?(:decrypt) && crypto_provider.decrypt(crypted_password) == attempted_password + password_salt) ||
-      (!crypto_provider.respond_to?(:decrypt) && crypto_provider.encrypt(attempted_password + password_salt) == crypted_password)
-  end
+#  def valid_password?(attempted_password)
+#    attempted_password = attempted_password.downcase if configatron.downcase_passwords
+#    return false if attempted_password.blank? || crypted_password.blank? || password_salt.blank?
+#    attempted_password == crypted_password ||
+#      (crypto_provider.respond_to?(:decrypt) && crypto_provider.decrypt(crypted_password) == attempted_password + password_salt) ||
+#      (!crypto_provider.respond_to?(:decrypt) && crypto_provider.encrypt(attempted_password + password_salt) == crypted_password)
+#  end
 
   # Creates a new password for the user, and notifies him with an email
   # override authlogic to use pronouncable password, and to email the user
@@ -277,7 +279,7 @@ class User < ActiveRecord::Base
       (size * 2).times do
         # get a random vocal or consonant
         chunk = (alternate ? consonants[rand * consonants.size] : vocals[rand * vocals.size])
-        chunk = chunk.upcase if !configatron.downcase_passwords && (rand > 0.5)
+#        chunk = chunk.upcase if !configatron.downcase_passwords && (rand > 0.5)
         password << chunk
         alternate = !alternate
       end
