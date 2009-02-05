@@ -2,11 +2,18 @@
 
 The "rake test" step still fails. Don't use this yet. 
 
-Peter Zingg probably built this for some student or social networking related purpose, judging by the profile fields. I'm toying with removing those for my own baseapp. I need a different model there for most projects I can think of. Expect later revisions to remove social networking fields and to see a branch with business oriented fields.
+Peter Zingg probably built this for some student or social networking related purpose, 
+judging by the profile fields. I'm toying with removing those for my own baseapp. 
+I need a different model there for most projects I can think of. Expect later revisions
+to remove social networking fields and to see a branch with business oriented fields.
 
 ** End Fixes Needed **
 
-Newly designed account management system based on latest gems and plugins.
+Account management system based on latest gems and plugins.
+
+Differences from PeterZingg/baseapp-openid?
+
+* configatron option to lowercase all passwords; expunged
 
 _Getting Going_
 
@@ -17,6 +24,7 @@ Sign up for recaptcha and get public and private API keys at http://www.recaptch
 Create config/database.yml ; horrible things happen if you don't
 Copy config/config.yml.sample to config/config.yml; edit, at least for recaptcha keys
 Copy config/mail.yml.sample to config/mail.yml; edit to suit
+Run 'rake secret' and the secret in config/environment.rb
 Make the "log" directory (mkdir log)
 Run rake db:migrate
 Run rake test; fix any reported problems
