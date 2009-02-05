@@ -5,9 +5,9 @@ class CreateUsers < ActiveRecord::Migration
       t.string   :email
       t.string   :crypted_password
       t.string   :password_salt
-      t.string   :remember_token, :limit => 40
-      t.string   :activation_code, :limit => 40
-      t.string   :password_reset_code, :limit => 40
+      t.string   :persistence_token, :limit => 40
+      t.string   :perishable_token, :limit => 40
+      t.string   :single_access_token, :limit => 40
       t.string   :state, :null => :false, :default => 'passive'
       t.integer  :login_count
       t.datetime :last_request_at
