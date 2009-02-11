@@ -83,3 +83,18 @@ end
 
 ENV['RECAPTCHA_PUBLIC_KEY'] = configatron.recaptcha_public_key
 ENV['RECAPTCHA_PRIVATE_KEY'] = configatron.recaptcha_private_key
+
+OPENID_SELECTORS = {
+  /yahoo\.com/ => 'Yahoo!',
+  /openid\.aol\.com/ => 'AOL',
+  /technorati\.com/ => 'Technorati',
+  /flickr\.com/ => 'Flickr',
+  /claimid\.com/ => 'claimID'
+  /\.pip\.verisignlabs\.com/ => 'Verisign',
+  /\.myopenid\.com/ => 'myOpenID',
+  /\.blogspot\.com/ => 'Blogger',
+  /\.myvidoop\.com/ => 'Vidoop',
+  /\.vox\.com/ => 'Vox',
+  /\.livejournal\.com/ => 'LiveJournal',
+  /\.wordpress\.com/ => 'Wordpress',
+}
